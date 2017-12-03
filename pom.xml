@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.zachary.framework</groupId>
+    <artifactId>framework</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>dbutil</module>
+    </modules>
+    <!--配置项目属性-->
+    <!-- properties节点用于配置项目属性的，比如项目的编码以及依赖jar的版本号统一设置 -->
+    <properties>
+        <!-- 设置整个maven项目的编码格式 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 配置控制台输出的编码格式，解决maven在控制台输出乱码 -->
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+        <!-- 统一设置依赖jar的版本号,标签名可以自定义
+             通常都以"项目名.version""的方式命名-->
+        <junit.version>4.12</junit.version>
+
+    </properties>
+    <!--配置maven插件-->
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <target>1.8</target>
+                    <source>1.8</source>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- 依赖配置管理，使用dependencyManagement依赖管理，子模块可按需继承-->
+    <dependencyManagement>
+    <!--依赖跟节点-->
+    <dependencies>
+        <!--添加junit依赖-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    </dependencyManagement>
+
+
+</project>
