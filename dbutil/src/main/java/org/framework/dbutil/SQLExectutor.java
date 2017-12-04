@@ -72,6 +72,39 @@ public class SQLExectutor {
 
         return row;
     }
+    /**
+     * 批量增删改操作
+     */
+    public int[] executeBatch(String sql,Object[][] param)throws SQLException{
+        if(connection==null){
+            throw new SQLException("collection is null");
+        }
+        if(sql==null){
+            close();
+            throw new SQLException("sql is null");
+        }
+        PreparedStatement ps = null;
+        int[] row = null;
+        try {
+            ps=connection.prepareStatement(sql);
+            for(int i=0;i<=param.length;i++){
+                setParameters(ps,param[i]);
+                ps.addBatch();
+            }
+            row = ps.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rethrow(e);
+        } finally {
+            close(ps);
+            if(autoClose){
+                close();
+            }
+        }
+
+        return row;
+    }
+
 
     /**
      * 设置替换参数
