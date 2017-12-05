@@ -8,13 +8,8 @@ import java.sql.Timestamp;
 public class ColumnUtil {
 
     /**
-     * 处理数据类型的转换
-     *
-     * @param rs
-     * @param columnName
-     * @param propType
-     * @return
-     * @throws SQLException
+     * 进行数据类型的转换
+     * propType 字段类型
      */
     public static Object columnConvert(ResultSet rs, String columnName,
                                 Class propType) throws SQLException {

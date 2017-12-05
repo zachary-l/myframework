@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BeanUtil {
+    //八大数据类型的默认值
     private static final Map<Class<?>, Object> primitiveDefaults = new HashMap<Class<?>, Object>();
 
     static {
@@ -24,9 +25,11 @@ public class BeanUtil {
     public static Object createBean(ResultSet rs, Class<?> type) throws SQLException {
         try {
             Object instance = type.newInstance();
+            //获取ResultSet对象中列的类型和属性信息的对象
             ResultSetMetaData rsd = rs.getMetaData();
             int len = rsd.getColumnCount();
             for (int i = 1; i <= len; i++) {
+                //columnName得当前列的列名
                 String columnName = rsd.getColumnLabel(i);
                 setAttribute(columnName, type, instance, rs);
             }
@@ -44,9 +47,10 @@ public class BeanUtil {
             //获得字段的注解，anno.value()获得字段注解的值，f.getName()获得字段名
             Column anno = f.getAnnotation(Column.class);
             if (columnName.equalsIgnoreCase(anno.value())) {
+                //获得该列该类型的值
                 Object value = ColumnUtil.columnConvert(rs, columnName, f.getType());
                 if (value == null && f.getType().isPrimitive()) {
-                    //字段值
+                    //设置字段默认值
                     value = primitiveDefaults.get(f.getType());
                 }
                 f.setAccessible(true);

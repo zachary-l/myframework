@@ -7,10 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RowProcessor {
-
+    /**
+     * 返回一个type类型的实体的结果集
+     */
     public  static <T> T toBean(ResultSet rs,Class<T> type) throws SQLException {
      return (T) BeanUtil.createBean(rs,type);
     }
+
+    /**
+     * 返回一个Object[]的结果集
+     */
     public static Object[] toArray(ResultSet rs)throws SQLException{
         ResultSetMetaData rsd = rs.getMetaData();
         Object[] array = new Object[rsd.getColumnCount()];
@@ -19,6 +25,7 @@ public class RowProcessor {
         }
         return array;
     }
+
     public static Map<String,Object> toMap(ResultSet rs)throws SQLException{
         Map<String,Object> map = new HashMap<>();
         ResultSetMetaData rsd = rs.getMetaData();

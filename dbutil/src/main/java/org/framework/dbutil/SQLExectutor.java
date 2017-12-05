@@ -12,7 +12,7 @@ public class SQLExectutor {
     /**
      * 执行DQL操作
      */
-    public <T> T executeQuery(String sql,ResultSetHandler<T> handler,Object...params)throws SQLException{
+    public <T> T executeQuery(String sql,ResultSetHandler<T> handler,Object...args)throws SQLException{
         if(connection==null){
             throw new SQLException("collection is null");
         }
@@ -29,7 +29,7 @@ public class SQLExectutor {
         T t = null;
         try {
             ps = connection.prepareStatement(sql);
-            setParameters(ps,params);
+            setParameters(ps,args);
             rs=ps.executeQuery();
             t = handler.handle(rs);
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class SQLExectutor {
     /**
      * 批量增删改操作
      */
-    public int[] executeBatch(String sql,Object[][] param)throws SQLException{
+    public int[] executeBatch(String sql,Object[][] args)throws SQLException{
         if(connection==null){
             throw new SQLException("collection is null");
         }
@@ -87,8 +87,8 @@ public class SQLExectutor {
         int[] row = null;
         try {
             ps=connection.prepareStatement(sql);
-            for(int i=0;i<=param.length;i++){
-                setParameters(ps,param[i]);
+            for(int i=0;i<=args.length;i++){
+                setParameters(ps,args[i]);
                 ps.addBatch();
             }
             row = ps.executeBatch();
