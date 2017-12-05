@@ -41,6 +41,5 @@ public class RowProcessor {
             value = ColumnUtil.columnConvert(rs,columnName,type);
         }
         return (T)value;
-
     }
 }
