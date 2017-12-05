@@ -87,7 +87,8 @@ public class SQLExectutor {
         int[] row = null;
         try {
             ps=connection.prepareStatement(sql);
-            for(int i=0;i<=args.length;i++){
+
+            for(int i=0;i<args.length;i++){
                 setParameters(ps,args[i]);
                 ps.addBatch();
             }

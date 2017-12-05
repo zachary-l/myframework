@@ -66,6 +66,17 @@ public class UserDao {
 
         return row;
     }
+    public int[] executeBatch(Object[][] obj){
+        String sql = "INSERT INTO USERS_INFO(U_NAME,U_AGE) VALUES(?,?);";
+        int[] row=null;
+        SQLExectutor se = new SQLExectutor(DBUtil.getConnection());
+        try {
+            row = se.executeBatch(sql,obj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return row;
+    }
 
     public static void main(String[] args) {
 
