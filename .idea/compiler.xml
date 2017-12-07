@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="beans" />
         <module name="dbutil" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="beans" target="1.8" />
       <module name="dbutil" target="1.8" />
       <module name="framework" target="1.8" />
     </bytecodeTargetLevel>
