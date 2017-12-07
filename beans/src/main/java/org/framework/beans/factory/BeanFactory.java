@@ -34,10 +34,13 @@ public class BeanFactory {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            if(clazz.isAnnotationPresent(Component.class)){
-                Definition df = setDefinition(clazz);
-                prototype.put(clazz.getAnnotation(Component.class).value(),df);
-            }
+            setPrototype(clazz);
+        }
+    }
+    private static void setPrototype(Class<?> clazz){
+        if(clazz.isAnnotationPresent(Component.class)){
+            Definition df = setDefinition(clazz);
+            prototype.put(clazz.getAnnotation(Component.class).value(),df);
         }
     }
     private static Definition setDefinition(Class<?> clazz){
