@@ -6,7 +6,7 @@ package org.framework.beans.factory;
 public class Definition {
     //bean的唯一标识
     private String id;
-    //bean的完整类名
+    //bean的Class文件对象
     private Class<?> clazz;
     //bean的创建方式
     private String scope;
