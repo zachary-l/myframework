@@ -1,4 +1,4 @@
-package org.framework.beans.factory;
+package org.framework.beans.factory.impl;
 
 import org.framework.beans.annotation.Inject;
 import org.framework.beans.factory.BeanFactory;
@@ -6,6 +6,9 @@ import org.framework.beans.factory.InjectionFactory;
 
 import java.lang.reflect.Field;
 
+/**
+ * 通过字段执行注入
+ */
 public class FieldInjectionFactory implements InjectionFactory {
     @Override
     public void injectionFactory(BeanFactory factory, Class<?> clazz, Object bean) {

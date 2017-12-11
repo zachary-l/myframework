@@ -3,6 +3,8 @@ package org.framework.beans.factory;
 
 import org.framework.beans.annotation.Component;
 import org.framework.beans.annotation.Scope;
+import org.framework.beans.factory.impl.FieldInjectionFactory;
+import org.framework.beans.factory.impl.MethodInjectionFactory;
 import org.framework.beans.util.ScanUtil;
 
 import java.util.HashMap;
@@ -38,7 +40,7 @@ public class BeanFactory {
             setPrototype(clazz);
         }
     }
-
+    //put进原型容器
     private static void setPrototype(Class<?> clazz) {
         if (clazz.isAnnotationPresent(Component.class)) {
             Definition df = setDefinition(clazz);
@@ -46,6 +48,7 @@ public class BeanFactory {
         }
     }
 
+    //设置bean描述
     private static Definition setDefinition(Class<?> clazz) {
         Definition definition = new Definition();
         definition.setId(clazz.getAnnotation(Component.class).value());
@@ -96,6 +99,7 @@ public class BeanFactory {
      * @return
      */
     private Object getPrototype(String id){
+        //判断prototype集合中是否存在id键
         if(prototype.containsKey(id)){
             return createBean(prototype.get(id).getClazz());
         }
@@ -121,15 +125,9 @@ public class BeanFactory {
         }
     }
 
+    //通过迭代器执行方法和字段的注入
     private void setinject(Object bean, Class<?> clazz){
-        InjectionFactory inf = new FieldInjectionFactory();
-        InjectionFactory inf1 = new MethodInjectionFactory();
-        try {
-            inf1.injectionFactory(this,clazz,bean);
-//            inf.injectionFactory(this, clazz, bean);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        InjectionExector.exector(this,clazz,bean);
     }
 
 }

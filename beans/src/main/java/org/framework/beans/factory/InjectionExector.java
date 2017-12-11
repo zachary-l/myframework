@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 public class InjectionExector {
-    private static Iterator<InjectionFactory> it;
-    private static List<InjectionFactory> list = new ArrayList<>();
-    static {
+    //创建一个迭代器用于存放injectinFactory的实现类
+    private Iterator<InjectionFactory> it;
+    public InjectionExector() {
         it = ServiceLoader.load(InjectionFactory.class).iterator();
-            while (it.hasNext()){
-                System.out.println(it.next());
-                list.add(it.next());
-            }
+
     }
-
-    public static void main(String[] args) {
-
+    //循环执行迭代器里的类
+    public static void exector(BeanFactory factory, Class<?> clazz,Object bean){
+        Iterator<InjectionFactory> it=new InjectionExector().it;
+        while (it.hasNext()){
+            it.next().injectionFactory(factory,clazz,bean);
+        }
     }
 
 
