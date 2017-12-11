@@ -1,0 +1,2 @@
+org.framework.beans.factory.FieldInjectionFactory
+org.framework.beans.factory.MethodInjectionFactory
