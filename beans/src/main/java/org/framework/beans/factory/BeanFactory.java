@@ -104,29 +104,6 @@ public class BeanFactory {
         }
     }
 
-    //关闭工厂
-    public void close() {
-        executeDestroyMethods();
-        singleton.clear();
-        prototype.clear();
-    }
-
-    //销毁前执行
-    private void executeDestroyMethods() {
-        for (String p : prototype.keySet()) {
-            Definition definition = prototype.get(p);
-            Object s = singleton.get(p);
-            if (s != null) {
-                try {
-                    definition.getDestroyMethod().invoke(s);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-
-        }
-    }
 
     public <T> T getBean(String name) {
         return (T) getContainerBean(name);
@@ -196,6 +173,31 @@ public class BeanFactory {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    //关闭工厂
+    public void close() {
+        executeDestroyMethods();
+        singleton.clear();
+        prototype.clear();
+    }
+
+    //销毁前执行
+    private void executeDestroyMethods() {
+        for (String p : prototype.keySet()) {
+            Definition definition = prototype.get(p);
+            Object s = singleton.get(p);
+            if (s != null) {
+                try {
+                    definition.getDestroyMethod().invoke(s);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+
         }
     }
 
