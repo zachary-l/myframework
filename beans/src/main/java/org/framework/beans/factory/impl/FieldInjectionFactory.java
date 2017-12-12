@@ -18,6 +18,7 @@ public class FieldInjectionFactory implements InjectionFactory {
                 Inject inject = f.getAnnotation(Inject.class);
                 f.setAccessible(true);
                 try {
+
                     f.set(bean, factory.getBean(inject.value(), f.getType()));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();

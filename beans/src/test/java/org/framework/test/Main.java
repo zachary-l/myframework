@@ -9,5 +9,7 @@ public class Main {
         BeanFactory factory = new BeanFactory("org.framework.test");
         TestController testController= factory.getBean("testController",TestController.class);
         testController.controller();
+        factory.close();
+
     }
 }

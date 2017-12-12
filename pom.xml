@@ -11,10 +11,6 @@
     <modules>
         <module>dbutil</module>
         <module>beans</module>
-        <module>beans</module>
-        <module>beans</module>
-        <module>beans</module>
-        <module>beans</module>
     </modules>
     <!--配置项目属性-->
     <!-- properties节点用于配置项目属性的，比如项目的编码以及依赖jar的版本号统一设置 -->

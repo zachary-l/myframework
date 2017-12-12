@@ -5,8 +5,11 @@ import org.framework.beans.annotation.Inject;
 import org.framework.beans.annotation.Scope;
 import org.framework.test.service.TestService;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @Component("testController")
-@Scope("prototype")
+@Scope("singleton")
 public class TestController {
 
     private TestService testService;
@@ -17,5 +20,13 @@ public class TestController {
 
     public void controller() {
     testService.testService();
+    }
+    @PostConstruct
+    public void beanInit(){
+        System.out.println("beanInit初始化");
+    }
+    @PreDestroy
+    public void beanDestroy(){
+        System.out.println("beanDestroy");
     }
 }

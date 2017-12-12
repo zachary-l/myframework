@@ -6,7 +6,7 @@ import org.framework.beans.annotation.Scope;
 import org.framework.test.dao.TestDao;
 
 @Component("testService")
-@Scope("prototype")
+@Scope("singleton")
 public class TestService {
     private TestDao testDao;
     @Inject("testDao")

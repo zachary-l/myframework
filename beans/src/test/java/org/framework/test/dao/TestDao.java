@@ -4,7 +4,7 @@ import org.framework.beans.annotation.Component;
 import org.framework.beans.annotation.Scope;
 
 @Component("testDao")
-@Scope("prototype")
+@Scope("singleton")
 public class TestDao {
     public void testDao(){
         System.out.println("dao");
