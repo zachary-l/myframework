@@ -5,6 +5,7 @@ import org.framework.beans.annotation.Component;
 import org.framework.beans.annotation.Scope;
 import org.framework.beans.factory.impl.FieldInjectionFactory;
 import org.framework.beans.factory.impl.MethodInjectionFactory;
+import org.framework.beans.util.BeanNameUtil;
 import org.framework.beans.util.ScanUtil;
 
 import javax.annotation.PostConstruct;
@@ -48,9 +49,20 @@ public class BeanFactory {
     //put进原型容器
     private static void setPrototype(Class<?> clazz) {
         if (clazz.isAnnotationPresent(Component.class)) {
-            Definition df = setDefinition(clazz);
-            prototype.put(clazz.getAnnotation(Component.class).value(), df);
+            String beanName = createBeanName(clazz);
+            if (prototype.containsKey(beanName)) {
+                throw new RuntimeException();
+            }else{
+                Definition df = setDefinition(clazz);
+                prototype.put(clazz.getAnnotation(Component.class).value(), df);
+            }
         }
+    }
+    private static String createBeanName(Class<?> beanClass) {
+        Component annotation = beanClass.getAnnotation(Component.class);
+        return ("".equals(annotation.value())) ? BeanNameUtil
+                .toLowerBeanName(beanClass.getSimpleName()) : annotation
+                .value();
     }
 
     //设置bean描述
