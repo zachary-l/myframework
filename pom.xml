@@ -11,6 +11,8 @@
     <modules>
         <module>dbutil</module>
         <module>beans</module>
+        <module>mvc</module>
+        <module>testmvc</module>
     </modules>
     <!--配置项目属性-->
     <!-- properties节点用于配置项目属性的，比如项目的编码以及依赖jar的版本号统一设置 -->
@@ -48,6 +50,12 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     </dependencyManagement>

@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/beans/beans.iml" filepath="$PROJECT_DIR$/beans/beans.iml" />
       <module fileurl="file://$PROJECT_DIR$/dbutil/dbutil.iml" filepath="$PROJECT_DIR$/dbutil/dbutil.iml" />
       <module fileurl="file://$PROJECT_DIR$/framework.iml" filepath="$PROJECT_DIR$/framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mvc/mvc.iml" filepath="$PROJECT_DIR$/mvc/mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testmvc/testmvc.iml" filepath="$PROJECT_DIR$/testmvc/testmvc.iml" />
     </modules>
   </component>
 </project>

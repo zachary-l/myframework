@@ -8,12 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="beans" />
         <module name="dbutil" />
+        <module name="mvc" />
+        <module name="testmvc" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="beans" target="1.8" />
       <module name="dbutil" target="1.8" />
       <module name="framework" target="1.8" />
+      <module name="mvc" target="1.8" />
+      <module name="testmvc" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

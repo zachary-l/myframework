@@ -10,6 +10,5 @@ public class Main {
         TestController testController= factory.getBean("testController",TestController.class);
         testController.controller();
         factory.close();
-
     }
 }
