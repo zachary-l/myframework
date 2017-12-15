@@ -1,62 +1,40 @@
 package org.framework.mvc;
 
-import org.framework.mvc.ann.ServletUrl;
+import org.framework.mvc.util.HandlerDefinitionParser;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static org.framework.mvc.util.ScanUtil.scanPackage;
-
 public class DispatcherServlet  extends HttpServlet{
-    private Map<String,Class<?>> mappings = null;
+    public final static String DETINITIONS = "definition";
+    private Map<String,HandlerDefinition> mappings = null;
     @Override
-    public void init() throws ServletException {
-        super.init();
-        initMapping();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        initMapping(config);
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        String url = req.getServletPath();
-        Class<?> handler = mappings.get(url);
-        if (handler ==null){
-            new DefaultHandler().handler(req,resp);
+        HandlerDefinition definition = new HandlerMapping().findHandler(req,resp);
+        if(definition==null){
+            try {
+                new DefaultHandler().handler(req,resp);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }else{
-            try {
-                ((Handler)handler.newInstance()).handler(req,resp);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            new HandlerInvoker().handlerInvoker(definition,req,resp);
         }
     }
 
-    public void initMapping(){
-        List<String> classNames = scanPackage();
-        mappings = new HashMap<>();
-        for (String className : classNames) {
-            try {
-                Class<?> clazz = Class.forName(className);
-                Object obj = clazz.newInstance();
-                if(obj instanceof Handler){
-                    if(clazz.isAnnotationPresent(ServletUrl.class)){
-                        ServletUrl servletUrl = clazz.getAnnotation(ServletUrl.class);
-//                        System.out.println(servletUrl.value()+"-->"+clazz);
-                        mappings.put(servletUrl.value(),clazz);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public void initMapping(ServletConfig config){
+        mappings = HandlerDefinitionParser.parser();
+        config.getServletContext().setAttribute(DETINITIONS,mappings);
     }
-
-
 }
