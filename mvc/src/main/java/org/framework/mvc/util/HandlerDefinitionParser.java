@@ -63,8 +63,8 @@ public class HandlerDefinitionParser {
         if(m.isAnnotationPresent(RequestMapping.class)){
             urlName = m.getAnnotation(RequestMapping.class).value();
             HandlerDefinition definition = setDefinition(clazz,m);
-            System.out.println(urlClassName+urlName);
-            System.out.println(definition);
+            /*System.out.println(urlClassName+urlName);
+            System.out.println(definition);*/
             mappings.put(urlClassName+urlName,definition);
         }
         return urlName;

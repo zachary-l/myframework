@@ -1,0 +1,3 @@
+org.framework.mvc.paramsHandler.BasicDataTypeHandler
+org.framework.mvc.paramsHandler.BeansTypeHandler
+org.framework.mvc.paramsHandler.ServletApiHandler
