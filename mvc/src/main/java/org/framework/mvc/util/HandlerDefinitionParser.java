@@ -17,8 +17,8 @@ import static org.framework.mvc.util.ScanUtil.scanPackage;
  */
 public class HandlerDefinitionParser {
     private static Map<String,HandlerDefinition> mappings = null;
-    public static Map<String,HandlerDefinition> parser(){
-        List<String> classNames = scanPackage();
+    public static Map<String,HandlerDefinition> parser(List<String> classNames){
+//        List<String> classNames = scanPackage();
          mappings = new HashMap<>();
         for (String className : classNames) {
             Class<?> clazz = createClazz(className);

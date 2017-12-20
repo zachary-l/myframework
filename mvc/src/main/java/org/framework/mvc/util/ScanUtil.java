@@ -49,6 +49,7 @@ public class ScanUtil {
 	public static void main(String[] args) throws Exception {
 		int i = 0;
 		List<String> classNames = scanPackage();
+		List<String> classNames2 = scanPackage();
 		for (String className : classNames) {
 			i++;
 			System.out.println(className);
