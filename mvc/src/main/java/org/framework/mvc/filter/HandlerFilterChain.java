@@ -1,13 +1,7 @@
 package org.framework.mvc.filter;
 
-import com.sun.glass.events.ViewEvent;
 import org.framework.mvc.*;
-
-import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 public class HandlerFilterChain {
@@ -22,12 +16,11 @@ public class HandlerFilterChain {
     public Object handle(){
         Object viewObject = null;
         if(it.hasNext()){
-            it.next().execute(this);
+            viewObject =it.next().execute(this);
         }else{
-            System.out.println("过滤通过");
+            System.out.println("filter success!");
             viewObject = new HandlerInvoker().handlerInvoker(mapper);
         }
         return viewObject;
     }
-
 }

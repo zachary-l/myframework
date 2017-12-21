@@ -30,7 +30,7 @@ public class ActionContext {
         return request;
     }
 
-    public void setRequest(HttpServletRequest request) {
+    protected void setRequest(HttpServletRequest request) {
         this.request = request;
     }
 
@@ -38,7 +38,7 @@ public class ActionContext {
         return response;
     }
 
-    public void setResponse(HttpServletResponse response) {
+    protected void setResponse(HttpServletResponse response) {
         this.response = response;
     }
 
@@ -46,7 +46,7 @@ public class ActionContext {
         return sessionMap;
     }
 
-    public void setSessionMap(SessionMap sessionMap) {
+    protected void setSessionMap(SessionMap sessionMap) {
         this.sessionMap = sessionMap;
     }
 }

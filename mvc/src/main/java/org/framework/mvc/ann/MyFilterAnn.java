@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)//定义在类
 @Retention(RetentionPolicy.RUNTIME)//允许时保存
-public @interface MyFilter {
+public @interface MyFilterAnn {
     String value();
     int order();
 }

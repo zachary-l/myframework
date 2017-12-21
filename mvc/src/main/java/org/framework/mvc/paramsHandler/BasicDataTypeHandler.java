@@ -23,6 +23,7 @@ public class BasicDataTypeHandler extends SetParamsHandler {
             return chain.execute(parameter);
         }
         Object value = ConvertUtils.convert(param,parameter.getType());
+        System.out.println("value:"+value);
         if(value==null){
             throw new RuntimeException("value is null");
         }

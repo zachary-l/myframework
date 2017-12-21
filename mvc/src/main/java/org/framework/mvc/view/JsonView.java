@@ -6,6 +6,9 @@ import org.framework.mvc.util.JsonUtil;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 返回json对象
+ */
 public class JsonView extends ViewResult {
     private String json;
     public JsonView(Object bean){

@@ -10,4 +10,5 @@ public class JsonUtil {
     public static String toJson(Object bean,String format){
         return new GsonBuilder().setDateFormat(format).create().toJson(bean);
     }
+
 }

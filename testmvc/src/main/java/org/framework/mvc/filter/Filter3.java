@@ -5,21 +5,21 @@ import org.framework.mvc.ann.MyFilterAnn;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@MyFilterAnn(value = "/handlers/method1",order = 2)
-public class Filter2 extends MyFilter {
+@MyFilterAnn(value = "/handlers/method2",order = 2)
+public class Filter3 extends MyFilter {
     @Override
     public void before() {
-        System.out.println("before2");
+        System.out.println("before3");
     }
 
     @Override
     public Object doFilter(HandlerFilterChain chain) {
-        System.out.println("dofilter2");
-        return chain.handle();
+        System.out.println("dofilter3 不放行");
+        return null;
     }
 
     @Override
     public void after() {
-        System.out.println("after2");
+        System.out.println("after3");
     }
 }

@@ -6,7 +6,7 @@ import org.framework.mvc.filter.Interceptor;
 import org.framework.mvc.scopeOfAction.SessionMap;
 import org.framework.mvc.util.HandlerDefinitionParser;
 import org.framework.mvc.util.ScanUtil;
-import org.framework.mvc.view.DefaultView;
+import org.framework.mvc.view.ContentView;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,18 +25,18 @@ public class DispatcherServlet  extends HttpServlet{
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        //扫描项目
         List<String> list = ScanUtil.scanPackage();
         //所有servlet信息
-        mappings = initMapping(config,list);
+        initMapping(config,list);
         //拦截器所拦截的servlet信息
-        initInterceptor(config,mappings,list);
+        initInterceptor(config,list);
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         //把作用域绑定到当前线程
         setActionContext(req,resp);
-
 //        ActionMapper mapper = new HandlerMapping().findHandler();
         HandlerFilterChain filterChain = new HandlerMapping().findHandler();
         if(filterChain.mapper.getDefinition()==null){
@@ -50,7 +50,7 @@ public class DispatcherServlet  extends HttpServlet{
 //            Object viewObject = new HandlerInvoker().handlerInvoker(filterChain.mapper);
             Object viewObject = filterChain.handle();
             //相应视图结果集
-            response(viewObject);
+            responseView(viewObject);
             //移除当前线程
             removeActionContext();
         }
@@ -61,24 +61,25 @@ public class DispatcherServlet  extends HttpServlet{
         config.getServletContext().setAttribute(DETINITIONS,mappings);
         return mappings;
     }
-    private void initInterceptor(ServletConfig config,Map<String,HandlerDefinition> mappings,List<String> list){
-        interceptor = new FilterInterceptor().interceptor(mappings,list);
+    private void initInterceptor(ServletConfig config,List<String> list){
+        interceptor = new FilterInterceptor().interceptor(list);
         config.getServletContext().setAttribute(FILTERDETINITIONS,interceptor);
     }
+
     private void setActionContext(HttpServletRequest request,HttpServletResponse response){
         ActionContext actionContext = ActionContext.getContext();
         actionContext.setRequest(request);
         actionContext.setResponse(response);
         actionContext.setSessionMap(new SessionMap(request));
     }
-
-    private void response(Object viewObject){
+        //响应视图结果集
+    private void responseView(Object viewObject){
         if(viewObject!=null){
             ViewResult viewResult = null;
             if(viewObject instanceof ViewResult){
                viewResult = (ViewResult)viewObject;
             }else{
-                viewResult = new DefaultView();
+                viewResult =new ContentView(viewObject);
             }
             try {
                 viewResult.execute();
@@ -88,7 +89,7 @@ public class DispatcherServlet  extends HttpServlet{
         }
     }
 
-
+        //移除线程
     private void removeActionContext(){
         ActionContext.localContext.remove();
     }

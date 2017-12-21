@@ -4,6 +4,9 @@ import org.framework.mvc.ViewResult;
 
 import java.io.IOException;
 
+/**
+ * 重定向
+ */
 public class RedirectView  extends ViewResult{
     private String urlPathName;
     public RedirectView(String urlPathName){
