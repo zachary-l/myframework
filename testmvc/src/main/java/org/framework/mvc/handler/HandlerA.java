@@ -28,15 +28,16 @@ public class HandlerA{
     //返回json对象.session作用域
     @RequestMapping("/handleC")
     public ViewResult handleC(){
-        Map<String,Object> map = ActionContext.getContext().getSession();
+        Map<String,Object> map = ActionContext.getContext().getSessionMap();
         map.put("a",1);
         int a =(Integer) map.get("a");
         return new JsonView(a);
     }
     @RequestMapping("/handleD")
-    public ViewResult handleD(String a){
-        String content = "content text"+a;
-        return new ContentView(content);
+    public ViewResult handleD(){
+        Map<String,Object> map = ActionContext.getContext().getSessionMap();
+        int a =(Integer) map.get("a");
+        return new ContentView(a);
     }
     @RequestMapping("/handleF")
     public String handleF(){

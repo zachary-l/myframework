@@ -14,7 +14,7 @@ public class LoginTest {
     public ViewResult login(User user){
         if(user!=null){
             if(user.getUserName()=="zachary"&&user.getPassword()=="123456"){
-                Map<String,Object> session = ActionContext.getContext().getSession();
+                Map<String,Object> session = ActionContext.getContext().getSessionMap();
                 session.put("user",user);
             }
         }

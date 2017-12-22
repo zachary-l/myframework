@@ -7,7 +7,7 @@ import org.framework.mvc.ann.RequestMapping;
 public class Dispaly {
     @RequestMapping("/display")
     public String display(){
-        User user = (User) ActionContext.getContext().getSession().get("user");
+        User user = (User) ActionContext.getContext().getSessionMap().get("user");
         String userName = "密码错误";
         if(user!=null){
             userName=user.getUserName();
