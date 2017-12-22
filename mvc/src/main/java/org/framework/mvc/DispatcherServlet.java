@@ -37,7 +37,7 @@ public class DispatcherServlet  extends HttpServlet{
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        //把作用域绑定到当前线程
+        //封装作用域
         setActionContext(req,resp);
 //        ActionMapper mapper = new HandlerMapping().findHandler();
         HandlerFilterChain filterChain = new HandlerMapping().findHandler();
