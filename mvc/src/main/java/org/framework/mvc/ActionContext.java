@@ -12,7 +12,9 @@ import java.util.Map;
 public class ActionContext {
     private HttpServletRequest request;
     private HttpServletResponse response;
+    private Map<String,Object> requestMap;
     private Map<String, Object> sessionMap;
+    private Map<String,Object> appliactionMap;
     final static ThreadLocal<ActionContext> localContext = new ThreadLocal<ActionContext>();
 
     private ActionContext() {}
@@ -42,11 +44,27 @@ public class ActionContext {
         this.response = response;
     }
 
-    public Map<String, Object> getSession() {
+    public Map<String, Object> getRequestMap() {
+        return requestMap;
+    }
+
+    protected void setRequestMap(Map<String, Object> requestMap) {
+        this.requestMap = requestMap;
+    }
+
+    public Map<String, Object> getSessionMap() {
         return sessionMap;
     }
 
-    protected void setSessionMap(SessionMap sessionMap) {
+    protected void setSessionMap(Map<String, Object> sessionMap) {
         this.sessionMap = sessionMap;
+    }
+
+    public Map<String, Object> getAppliactionMap() {
+        return appliactionMap;
+    }
+
+    protected void setAppliactionMap(Map<String, Object> appliactionMap) {
+        this.appliactionMap = appliactionMap;
     }
 }

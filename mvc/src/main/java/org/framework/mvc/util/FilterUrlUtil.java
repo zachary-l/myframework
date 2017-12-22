@@ -3,7 +3,7 @@ package org.framework.mvc.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FilterMatchUtil {
+public class FilterUrlUtil {
 
     public static boolean match(String str , String regEx){
         Pattern pattern = Pattern.compile(regEx);

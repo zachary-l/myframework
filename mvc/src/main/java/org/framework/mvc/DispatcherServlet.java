@@ -1,6 +1,8 @@
 package org.framework.mvc;
 
 import org.framework.mvc.filter.HandlerFilterChain;
+import org.framework.mvc.scopeOfAction.ApplicationMap;
+import org.framework.mvc.scopeOfAction.RequestMap;
 import org.framework.mvc.util.FilterInterceptor;
 import org.framework.mvc.filter.Interceptor;
 import org.framework.mvc.scopeOfAction.SessionMap;
@@ -70,7 +72,9 @@ public class DispatcherServlet  extends HttpServlet{
         ActionContext actionContext = ActionContext.getContext();
         actionContext.setRequest(request);
         actionContext.setResponse(response);
+        actionContext.setRequestMap(new RequestMap(request));
         actionContext.setSessionMap(new SessionMap(request));
+        actionContext.setAppliactionMap(new ApplicationMap(request));
     }
         //响应视图结果集
     private void responseView(Object viewObject){

@@ -36,8 +36,8 @@ public class FilterInterceptor {
                 MyFilterAnn servletUrl = clazz.getAnnotation(MyFilterAnn.class);
                 if (servletUrl != null) {
                     urlName = servletUrl.value();
-//                    System.out.println(urlName+"---"+ FilterMatchUtil.match(s,urlName));
-                    if (FilterMatchUtil.match(s,urlName)) {
+//                    System.out.println(urlName+"---"+ FilterUrlUtil.match(s,urlName));
+                    if (FilterUrlUtil.match(s,urlName)) {
                         list.add((Interceptor) createInstance(clazz));
                     }
                 }
@@ -57,6 +57,7 @@ public class FilterInterceptor {
         }
         return list;
     }
+    //创建实例
     private Object createInstance(Class<?> clazz){
         Object instance = null;
         try {
