@@ -5,6 +5,7 @@ import org.framework.mvc.filter.Interceptor;
 import java.util.List;
 
 /**
+ * 准备执行invoke前的所需要的信息
  * 为了降低HandlerInvoker里面方法的耦合度
  */
 public class ActionMapper {
