@@ -16,9 +16,12 @@
 
     <!-- 配置依赖 -->
     <dependencies>
+        <!--添加junit依赖-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
