@@ -13,6 +13,7 @@
         <module>beans</module>
         <module>mvc</module>
         <module>testmvc</module>
+        <module>webplugin</module>
     </modules>
     <!--配置项目属性-->
     <!-- properties节点用于配置项目属性的，比如项目的编码以及依赖jar的版本号统一设置 -->
@@ -23,7 +24,6 @@
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <!-- 统一设置依赖jar的版本号,标签名可以自定义
              通常都以"项目名.version""的方式命名-->
-        <junit.version>4.12</junit.version>
 
     </properties>
     <!--配置maven插件-->
@@ -45,7 +45,6 @@
     <dependencyManagement>
     <!--依赖跟节点-->
     <dependencies>
-
 
     </dependencies>
     </dependencyManagement>

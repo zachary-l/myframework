@@ -23,9 +23,9 @@ public class BeanFactory {
     }
 
     //单例的容器
-    private static Map<String, Object> singleton = new HashMap<String, Object>();
+    private static Map<String, Object> singleton = new HashMap<>();
     //原型的容器
-    private static Map<String, Definition> prototype = new HashMap<String, Definition>();
+    private static Map<String, Definition> prototype = new HashMap<>();
 
     /**
      * 初始化原型工厂

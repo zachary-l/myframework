@@ -3,8 +3,6 @@ package org.framework.beans.factory.impl;
 import org.framework.beans.annotation.Inject;
 import org.framework.beans.factory.BeanFactory;
 import org.framework.beans.factory.InjectionFactory;
-import org.framework.test.dao.TestDao;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
