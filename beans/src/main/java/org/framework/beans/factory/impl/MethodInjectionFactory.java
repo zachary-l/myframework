@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 /**
  * 通过set方法执行注入
  */
-public class MethodInjectionFactory implements InjectionFactory {
+public class    MethodInjectionFactory implements InjectionFactory {
     @Override
     public void injectionFactory(BeanFactory factory, Class<?> clazz, Object bean){
         BeanInfo beanInfo = null;

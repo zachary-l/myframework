@@ -94,7 +94,6 @@ public class SQLExectutor {
             }
             row = ps.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
             rethrow(e);
         } finally {
             close(ps);

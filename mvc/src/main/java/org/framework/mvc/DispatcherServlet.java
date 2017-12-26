@@ -11,6 +11,7 @@ import org.framework.mvc.util.ScanUtil;
 import org.framework.mvc.view.ContentView;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class DispatcherServlet  extends HttpServlet{
     public final static String DETINITIONS = "definition";
     public final static String FILTERDETINITIONS = "filterDefinition";
+    public final static String ACTION_FACTORY = "org.evergreen.web.actionFactory";
     private Map<String,HandlerDefinition> mappings = null;
     private Map<String,List<Interceptor>> interceptor = null;
     @Override
@@ -33,6 +35,8 @@ public class DispatcherServlet  extends HttpServlet{
         initMapping(config,list);
         //拦截器所拦截的servlet信息
         initInterceptor(config,list);
+        // 初始化action工厂
+        initActionFactory(config.getServletContext());
     }
 
     @Override
@@ -66,6 +70,11 @@ public class DispatcherServlet  extends HttpServlet{
     private void initInterceptor(ServletConfig config,List<String> list){
         interceptor = new FilterInterceptor().interceptor(list);
         config.getServletContext().setAttribute(FILTERDETINITIONS,interceptor);
+    }
+    private void initActionFactory(ServletContext servletContext) {
+        if(servletContext.getAttribute(ACTION_FACTORY) == null){
+            servletContext.setAttribute(ACTION_FACTORY, new WebHandlerFactory());
+        }
     }
 
     private void setActionContext(HttpServletRequest request,HttpServletResponse response){

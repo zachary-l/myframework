@@ -3,6 +3,7 @@ package org.framework.mvc;
 import org.framework.mvc.paramsHandler.HandlerChain;
 import org.framework.mvc.util.BasicTypeChangeUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 
@@ -44,7 +45,12 @@ public class HandlerInvoker {
         mapper.setParams(params);
     }
     //创建实例
-    private void createInstance(ActionMapper mapper) {
+    private void createInstance(ActionMapper mapper){
+        HttpServletRequest request = ActionContext.getContext().getRequest();
+        HandlerFactory handlerFactory = (HandlerFactory) request.getServletContext().getAttribute(DispatcherServlet.ACTION_FACTORY);
+        mapper.setTarget(handlerFactory.createHandler(mapper.getDefinition()));
+    }
+/*    private void createInstance(ActionMapper mapper) {
         Class<?> c = mapper.getDefinition().getClazz();
         Object instance = null;
         if (c != null) {
@@ -55,7 +61,7 @@ public class HandlerInvoker {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
     private void dataVerification(ActionMapper mapper){
         Object[] params = mapper.getParams();
         for(int i = 0; i < params.length; i++){
