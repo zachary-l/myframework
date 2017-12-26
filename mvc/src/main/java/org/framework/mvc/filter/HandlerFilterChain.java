@@ -18,7 +18,7 @@ public class HandlerFilterChain {
         if(it.hasNext()){
             viewObject =it.next().execute(this);
         }else{
-            System.out.println("filter success!");
+//            System.out.println("filter success!");
             viewObject = new HandlerInvoker().handlerInvoker(mapper);
         }
         return viewObject;
