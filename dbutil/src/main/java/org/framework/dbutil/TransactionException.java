@@ -1,6 +1,6 @@
 package org.framework.dbutil;
 
-public class TransactionException extends SQLExectorException {
+public class TransactionException extends SQLExecutorException {
     public TransactionException(String message) {
         super(message);
     }

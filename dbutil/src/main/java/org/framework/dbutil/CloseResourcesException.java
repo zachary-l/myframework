@@ -1,6 +1,6 @@
 package org.framework.dbutil;
 
-public class CloseResourcesException extends SQLExectorException {
+public class CloseResourcesException extends SQLExecutorException {
     public CloseResourcesException(String message) {
         super(message);
     }

@@ -1,12 +1,11 @@
 package org.framework.dbutil;
 
 import java.sql.*;
-import java.util.Collection;
 
-public class SQLExector {
+public class SQLExecutor {
     private Connection connection;
     private boolean autoClose = true;
-    public SQLExector(Connection connection){
+    public SQLExecutor(Connection connection){
         this.connection=connection;
     }
     /**
@@ -14,15 +13,15 @@ public class SQLExector {
      */
     public <T> T executeQuery(String sql,ResultSetHandler<T> handler,Object...args){
         if(connection==null){
-            throw new SQLExectorException("collection is null");
+            throw new SQLExecutorException("collection is null");
         }
         if(sql==null){
             close();
-            throw new SQLExectorException("sql is null");
+            throw new SQLExecutorException("sql is null");
         }
         if(handler==null){
             close();
-            throw new SQLExectorException("handler is null");
+            throw new SQLExecutorException("handler is null");
         }
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -33,7 +32,7 @@ public class SQLExector {
             rs=ps.executeQuery();
             t = handler.handle(rs);
         } catch (SQLException e) {
-            throw new SQLExectorException("exector query fail",e);
+            throw new SQLExecutorException("exector query fail",e);
         } finally {
             close(ps);
             close(rs);
@@ -49,11 +48,11 @@ public class SQLExector {
      */
     public void executeUpdate(String sql,Object...args) {
         if(connection==null){
-            throw new SQLExectorException("collection is null");
+            throw new SQLExecutorException("collection is null");
         }
         if(sql==null){
             close();
-            throw new SQLExectorException("sql is null");
+            throw new SQLExecutorException("sql is null");
         }
         PreparedStatement ps = null;
         try {
@@ -61,7 +60,7 @@ public class SQLExector {
             setParameters(ps, args);
             ps.executeUpdate();
         }catch (SQLException e) {
-            throw new SQLExectorException("exector update fail",e);
+            throw new SQLExecutorException("exector update fail",e);
         } finally {
             close(ps);
             if (autoClose) {
@@ -74,11 +73,11 @@ public class SQLExector {
      */
     public void executeBatch(String sql,Object[][] args){
         if(connection==null){
-            throw new SQLExectorException("collection is null");
+            throw new SQLExecutorException("collection is null");
         }
         if(sql==null){
             close();
-            throw new SQLExectorException("sql is null");
+            throw new SQLExecutorException("sql is null");
         }
         PreparedStatement ps = null;
         try {
@@ -90,7 +89,7 @@ public class SQLExector {
             }
             ps.executeBatch();
         } catch (SQLException e) {
-            throw  new SQLExectorException(" exector executeBatch fail",e );
+            throw  new SQLExecutorException(" exector executeBatch fail",e );
         } finally {
             close(ps);
             if(autoClose){
