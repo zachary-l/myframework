@@ -15,9 +15,6 @@ public class DefaultHandler extends HttpServlet implements Handler{
     @Override
     public void handler() throws IOException{
         RequestDispatcher rd = request.getServletContext().getNamedDispatcher("default");
-        System.out.println(rd);
-        System.out.println(request);
-        System.out.println(response);
         try {
             rd.forward(request, response);
         } catch (ServletException e) {
