@@ -3,26 +3,26 @@ package org.framework.dbutil;
 import java.sql.*;
 import java.util.Collection;
 
-public class SQLExectutor {
+public class SQLExector {
     private Connection connection;
     private boolean autoClose = true;
-    public SQLExectutor(Connection connection){
+    public SQLExector(Connection connection){
         this.connection=connection;
     }
     /**
      * 执行DQL操作
      */
-    public <T> T executeQuery(String sql,ResultSetHandler<T> handler,Object...args)throws SQLException{
+    public <T> T executeQuery(String sql,ResultSetHandler<T> handler,Object...args){
         if(connection==null){
-            throw new SQLException("collection is null");
+            throw new SQLExectorException("collection is null");
         }
         if(sql==null){
             close();
-            throw new SQLException("sql is null");
+            throw new SQLExectorException("sql is null");
         }
         if(handler==null){
             close();
-            throw new SQLException("handler is null");
+            throw new SQLExectorException("handler is null");
         }
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -33,7 +33,7 @@ public class SQLExectutor {
             rs=ps.executeQuery();
             t = handler.handle(rs);
         } catch (SQLException e) {
-            rethrow(e);
+            throw new SQLExectorException("exector query fail",e);
         } finally {
             close(ps);
             close(rs);
@@ -47,44 +47,40 @@ public class SQLExectutor {
     /**
      * 执行DML操作
      */
-    public int executeUpdate(String sql,Object...args) throws SQLException {
+    public void executeUpdate(String sql,Object...args) {
         if(connection==null){
-            throw new SQLException("collection is null");
+            throw new SQLExectorException("collection is null");
         }
         if(sql==null){
             close();
-            throw new SQLException("sql is null");
+            throw new SQLExectorException("sql is null");
         }
         PreparedStatement ps = null;
-        int row= 0;
         try {
             ps = connection.prepareStatement(sql);
             setParameters(ps, args);
-            row = ps.executeUpdate();
+            ps.executeUpdate();
         }catch (SQLException e) {
-            rethrow(e);
+            throw new SQLExectorException("exector update fail",e);
         } finally {
             close(ps);
             if (autoClose) {
                 close();
             }
         }
-
-        return row;
     }
     /**
      * 批量增删改操作
      */
-    public int[] executeBatch(String sql,Object[][] args)throws SQLException{
+    public void executeBatch(String sql,Object[][] args){
         if(connection==null){
-            throw new SQLException("collection is null");
+            throw new SQLExectorException("collection is null");
         }
         if(sql==null){
             close();
-            throw new SQLException("sql is null");
+            throw new SQLExectorException("sql is null");
         }
         PreparedStatement ps = null;
-        int[] row = null;
         try {
             ps=connection.prepareStatement(sql);
 
@@ -92,17 +88,15 @@ public class SQLExectutor {
                 setParameters(ps,args[i]);
                 ps.addBatch();
             }
-            row = ps.executeBatch();
+            ps.executeBatch();
         } catch (SQLException e) {
-            rethrow(e);
+            throw  new SQLExectorException(" exector executeBatch fail",e );
         } finally {
             close(ps);
             if(autoClose){
                 close();
             }
         }
-
-        return row;
     }
 
 
@@ -127,7 +121,7 @@ public class SQLExectutor {
             autoClose = false;
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new TransactionException("beginTranstaction is fail",e);
         }
     }
 
@@ -138,7 +132,7 @@ public class SQLExectutor {
         try {
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new TransactionException("commit is fail",e);
         } finally {
             close();
         }
@@ -151,7 +145,7 @@ public class SQLExectutor {
         try {
             connection.rollback();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new TransactionException("rollback is fail",e);
         } finally {
             close();
         }
@@ -167,6 +161,7 @@ public class SQLExectutor {
             try {
                 rs.close();
             } catch (SQLException e) {
+            throw new CloseResourcesException("close is fail",e);
             }
     }
 
@@ -180,6 +175,7 @@ public class SQLExectutor {
             try {
                 st.close();
             } catch (SQLException e) {
+                throw new CloseResourcesException("close is fail",e);
             }
     }
 
@@ -192,6 +188,7 @@ public class SQLExectutor {
                 connection.close();
             }
         } catch (SQLException e) {
+            throw new CloseResourcesException("close is fail",e);
         }
     }
 
