@@ -27,7 +27,7 @@
 
 
     </properties>
-    <!--配置maven插件-->
+    <!-- Maven插件管理 -->
     <build>
         <plugins>
             <plugin>

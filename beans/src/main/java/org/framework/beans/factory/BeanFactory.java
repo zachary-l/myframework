@@ -28,7 +28,7 @@ public class BeanFactory {
      */
     public BeanFactory(String pathName) {
 
-        List<String> classList = ScanUtil.scan(pathName);
+        List<String> classList =  ScanUtil.scan(pathName);
         //初始化原型
         initPrototype(classList);
         //初始化单例

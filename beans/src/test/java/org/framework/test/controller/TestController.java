@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component("testController")
-@Scope("singleton")
 public class TestController {
 
     private TestService testService;
