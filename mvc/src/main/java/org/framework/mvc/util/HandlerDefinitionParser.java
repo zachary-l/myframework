@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.framework.mvc.util.ScanUtil.scanPackage;
 
 /**
  * 扫描项目下的所有类

@@ -38,6 +38,7 @@ public class HandlerInvoker {
     //参数赋值
     private void setParams(ActionMapper mapper) {
         Object[] params = new Object[mapper.getDefinition().getMethod().getParameterCount()];
+
         for (int i = 0; i < params.length; i++) {
             Parameter parameter = mapper.getDefinition().getMethod().getParameters()[i];
             params[i] = new HandlerChain().execute(parameter);
@@ -50,18 +51,6 @@ public class HandlerInvoker {
         HandlerFactory handlerFactory = (HandlerFactory) request.getServletContext().getAttribute(DispatcherServlet.ACTION_FACTORY);
         mapper.setTarget(handlerFactory.createHandler(mapper.getDefinition()));
     }
-/*    private void createInstance(ActionMapper mapper) {
-        Class<?> c = mapper.getDefinition().getClazz();
-        Object instance = null;
-        if (c != null) {
-            try {
-               instance = c.newInstance();
-               mapper.setTarget(instance);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
     private void dataVerification(ActionMapper mapper){
         Object[] params = mapper.getParams();
         for(int i = 0; i < params.length; i++){
