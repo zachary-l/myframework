@@ -152,7 +152,6 @@ public class SQLExecutor {
 
     /**
      * 关闭结果集
-     *
      * @param rs
      */
     private void close(ResultSet rs) {

@@ -39,7 +39,7 @@
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
                     <!--<compilerArgs>-parameters</compilerArgs>-->
-                    <compilerArgument>-parameters</compilerArgument>
+                    <!--<compilerArgument>-parameters</compilerArgument>-->
                 </configuration>
             </plugin>
         </plugins>
