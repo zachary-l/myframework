@@ -17,13 +17,12 @@ public class BasicDataTypeHandler extends SetParamsHandler {
             param = getRequest().getParameterValues(parameter.getName());
         }else{
             param = getRequest().getParameter(parameter.getName());
-        }
+           }
         if (param==null){
             //递归
             return chain.execute(parameter);
         }
         Object value = ConvertUtils.convert(param,parameter.getType());
-        System.out.println("value:"+value);
         if(value==null){
             throw new RuntimeException("value is null");
         }
